@@ -1,10 +1,11 @@
 // (c) 2011-2015 Alexander Solovyov
+// (c) 2016 DOCa Cola
 // under terms of ISC License
 
 var UNIQUE_CLASS_NAME = 'adium-inline-' + Math.random();
 var IMAGE_SERVICES = [
     {
-        test: new RegExp('^https?://en.wikipedia.org/wiki/File:(.*)', 'i'),
+        test: new RegExp('^https?://en\.wikipedia\.org/wiki/.*File:(.*)', 'i'),
         link: function(href, m) {
             return 'File:' + m[1];
         },
@@ -36,18 +37,19 @@ var IMAGE_SERVICES = [
         }
     },
     {test: /\.(png|jpg|jpeg|gif)$/i},
-    {test: new RegExp('^https://i.chzbgr.com/')},
-    {test: new RegExp('^http://img-fotki.yandex.ru/get/')},
-    {test: new RegExp('^http://img.leprosorium.com/')},
-    {test: new RegExp('^https?://pbs.twimg.com/media/')},
+    {test: new RegExp('^https://i\.chzbgr\.com/')},
+    {test: new RegExp('^http://img-fotki\.yandex\.ru/get/')},
+    {test: new RegExp('^http://img\.leprosorium\.com/')},
+    {test: new RegExp('^https?://pbs\.twimg\.com/media/')},
+    {test: new RegExp('^https?://i\.reddituploads\.com/')},
     {
-        test: new RegExp('^https?://(?:www\\.)?monosnap.com/image/(\\w+)', 'i'),
+        test: new RegExp('^https?://(?:www\\.)?monosnap\.com/image/(\\w+)', 'i'),
         link: function(href, m) {
             return 'http://api.monosnap.com/image/download?id=' + m[1];
         }
     },
     {
-        test: new RegExp('^https?://(?:i.)?imgur.com/([^/]*)\.gifv', 'i'),
+        test: new RegExp('^https?://(?:i.)?imgur\.com/([^/]*)(\.gifv|\.mp4)', 'i'),
         link: function(href, m) {
             return 'http://i.imgur.com/' + m[1] + '.mp4';
         },
@@ -70,13 +72,13 @@ var IMAGE_SERVICES = [
     {
         // all links which do not have slash as a second character in path,
         // because imgur.com/a/stuff is an album and not an image
-        test: new RegExp('^https?://imgur.com/.[^/]', 'i'),
+        test: new RegExp('^https?://imgur\.com/.[^/]', 'i'),
         link: function(href, m) {
             return href.replace('imgur.com', 'i.imgur.com') + '.jpg';
         }
     },
     {
-        test: new RegExp('^https?://twitter.com/[^/]+/status/\\d+'),
+        test: new RegExp('^https?://twitter\.com/[^/]+/status/\\d+'),
         link: function(href, m) {
             return m[0];
         },
